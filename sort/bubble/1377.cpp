@@ -25,7 +25,7 @@ int main()
         res = max(res, input[i].second - i);
     }
 
-    cout << res;
+    cout << res + 1;
 
     return 0;
 }
