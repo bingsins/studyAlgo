@@ -7,14 +7,12 @@ class Solution {
 public:
 	struct node
 	{
-		int nVal;
 		bool bApple;
 		bool bChecked;
 		vector<node*> pChildren;
 
 		node()
 		{
-			nVal = -1;
 			bApple = false;
 			bChecked = false;
 		}
@@ -28,15 +26,23 @@ public:
 	{
 		node *pEdge = new node[n];
 
-		m_nAppleCount = 0;
-		for (int i = 0; i < n; i++)
+		m_nAppleCount = 0;	
+	
+		vector<bool>::iterator iter = hasApple.begin();
+		while (1)
 		{
-			pEdge[i].nVal = i;
+			iter = find(iter, hasApple.end(), true);
 
-			if (hasApple[i] == true)
+			if (iter == hasApple.end())
 			{
-				pEdge[i].bApple = true;
+				break;
+			}
+			else
+			{
+				int nIndex = distance(hasApple.begin(), iter);
+				pEdge[nIndex].bApple = true;
 				m_nAppleCount++;
+				iter++;
 			}
 		}
 
@@ -143,14 +149,14 @@ void main()
 	edges.push_back(edge);
 	edge.clear();
 
-	hasApple.push_back(true);
-	hasApple.push_back(true);
+	hasApple.push_back(false);
+	hasApple.push_back(false);
+	hasApple.push_back(false);
+	hasApple.push_back(false);
+	hasApple.push_back(false);
+	hasApple.push_back(false);
 	hasApple.push_back(false);
 	hasApple.push_back(true);
-	hasApple.push_back(false);
-	hasApple.push_back(true);
-	hasApple.push_back(true);
-	hasApple.push_back(false);
 
 	int nResult = solution->minTime(n, edges, hasApple);
 
