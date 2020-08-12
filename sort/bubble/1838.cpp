@@ -1,4 +1,4 @@
-
+//https://mygumi.tistory.com/84
 /*
 #include <iostream>
 
@@ -121,7 +121,7 @@ int main()
 }
 */
 
-/*
+
 #include <iostream>
 #include <algorithm>
 using namespace std;
@@ -155,10 +155,10 @@ int main()
 
     return 0;
 }
-*/
+
 
 /*
-결국 실패... 
+결국 실패...  
 #include <iostream>
 #include <algorithm>
 using namespace std;
