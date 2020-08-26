@@ -9,7 +9,6 @@ class Solution {
 public:
 	enum
 	{
-		eVISITED_CELL	= -1,
 		eEMPTY_CELL		= 0,
 		eFRESH_ORANGE,
 		eROTTEN_ORANGE,
