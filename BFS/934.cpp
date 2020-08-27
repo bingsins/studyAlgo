@@ -38,7 +38,7 @@ public:
 
         int count = 2;
 
-        while (count)
+        while (count<A.size()+2)
         {
             i = 0;
             j = 0;
