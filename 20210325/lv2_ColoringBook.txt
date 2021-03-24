@@ -1,0 +1,71 @@
+#include <vector>
+#include <map>
+#include <algorithm>
+
+using namespace std;
+
+int m_nCol;
+int m_nRow;
+
+struct RegionValueComp
+{
+	bool operator()(pair<int, int> m1, pair<int, int> m2)const
+	{
+		return (m1.second < m2.second);
+	}
+};
+
+void PaintRegion(int nCurColor, vector<vector<int>>& picture, map<int, int>& mRegions, int nRegionIndex, int i, int j)
+{
+	if (i < 0 || i >= m_nRow)
+		return;
+	if (j < 0 || j >= m_nCol)
+		return;
+
+	if (picture[i][j] == 0)
+		return;
+
+	if (picture[i][j] == nCurColor)
+	{
+		mRegions[nRegionIndex]++;
+		picture[i][j] = 0;
+
+		PaintRegion(nCurColor, picture, mRegions, nRegionIndex, i - 1, j);	// Top
+		PaintRegion(nCurColor, picture, mRegions, nRegionIndex, i + 1, j);	// Bottom
+		PaintRegion(nCurColor, picture, mRegions, nRegionIndex, i, j - 1);	// Left
+		PaintRegion(nCurColor, picture, mRegions, nRegionIndex, i, j + 1);	// Right
+	}
+}
+
+vector<int> solution(int m, int n, vector<vector<int>> picture) 
+{
+	m_nCol = n;
+	m_nRow = m;
+
+	int nRegionCount = 0;
+
+	map<int, int> mRegions;
+
+	int nCurColor = 0;
+	for (int i = 0; i < m_nRow; i++)
+	{
+		for (int j = 0; j < m_nCol; j++)
+		{
+			nCurColor = picture[i][j];
+			if (nCurColor != 0)
+			{
+				nRegionCount++;
+				PaintRegion(nCurColor, picture, mRegions, nRegionCount, i, j);
+			}
+		}
+	}
+
+	vector<pair<int, int>> vRegionCount(mRegions.begin(), mRegions.end());
+	sort(vRegionCount.begin(), vRegionCount.end(), RegionValueComp());
+    
+	vector<int> vResult(2);
+	vResult[0] = nRegionCount;
+	vResult[1] = vRegionCount.rbegin()->second;
+
+	return vResult;
+}
